@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "user-splitter-bot"
+version = "0.1.0"
+description = ""
+authors = ["leks <vollkovalex1991@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiogram = "^3.10.0"
+punq = "^0.7.0"
+aiohttp = "3.9.1"
+pydantic-settings = "^2.4.0"
+
+
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.5.6"
+pre-commit = "^3.7.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-asyncio = "^0.23.7"
+faker = "^25.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
