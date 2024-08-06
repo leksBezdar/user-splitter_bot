@@ -11,15 +11,15 @@ from src.core.configs import settings
 logger = logging.getLogger(__name__)
 
 
-def add_handlers(dp: Dispatcher) -> None:
-    dp.message.register(start_handler, CommandStart())
-    dp.callback_query.register(start_handler, F.data == "Start")
+def add_handlers(dispatcher: Dispatcher) -> None:
+    dispatcher.message.register(start_handler, CommandStart())
+    dispatcher.callback_query.register(start_handler, F.data == "start")
 
 
 async def telegram_view_factory() -> TelegramWebhookView:
     bot = Bot(token=settings.BOT_TOKEN)
     await bot.set_webhook(settings.TELEGRAM_WEB_HOOK)
 
-    dp = Dispatcher()
-    add_handlers(dp=dp)
-    return TelegramWebhookView(dispatcher=dp, bot=bot)
+    dispatcher = Dispatcher()
+    add_handlers(dispatcher=dispatcher)
+    return TelegramWebhookView(dispatcher=dispatcher, bot=bot)

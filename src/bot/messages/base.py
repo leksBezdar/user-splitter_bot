@@ -13,7 +13,7 @@ class BaseMessageBuilder:
     def reply_markup(self) -> Any | None:
         return self._reply_markup
 
-    def build(self):
+    def build(self) -> dict:
         content = {"text": self.text}
 
         if self.reply_markup:

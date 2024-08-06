@@ -1,12 +1,12 @@
-from aiohttp import web
+from aiohttp.web import Application
 
 from src.api.internal.routers import router as internal_router
 from src.bot.bot import telegram_view_factory
 from src.core.configs import settings
 
 
-async def init_app() -> web.Application:
-    app = web.Application()
+async def init_app() -> Application:
+    app = Application()
     settings.config_logger()
 
     app.router.add_route(
