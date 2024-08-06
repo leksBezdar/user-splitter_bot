@@ -22,4 +22,4 @@ async def telegram_view_factory() -> TelegramWebhookView:
 
     dp = Dispatcher()
     add_handlers(dp=dp)
-    return TelegramWebhookView(dp=dp, bot=bot)
+    return TelegramWebhookView(dispatcher=dp, bot=bot)
