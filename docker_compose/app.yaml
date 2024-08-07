@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: dev
+    container_name: aiohttp_app
+    command: python setup.py
+    volumes:
+      - ..:/src
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env
+    depends_on:
+      - postgres
+    networks:
+      - splitter_network
+
+
+networks:
+  splitter_network:
+    driver: bridge

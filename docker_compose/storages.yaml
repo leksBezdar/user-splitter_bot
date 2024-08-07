@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_splitter
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - postgres_data_splitter:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    env_file:
+      - ../.env
+    command:
+      -p ${DB_PORT}
+    networks:
+      - splitter_network
+
+volumes:
+  postgres_data_splitter:
+
+networks:
+  splitter_network:
+    driver: bridge
