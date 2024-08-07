@@ -12,3 +12,5 @@ class Environment(str, Enum):
 class GeneralSettings(BaseSettings):
     SERVICE_NAME: str = "user-splitter"
     ENVIRONMENT: Environment = Environment.DEV
+    PYTHONPATH: str
+    API_PORT: str
