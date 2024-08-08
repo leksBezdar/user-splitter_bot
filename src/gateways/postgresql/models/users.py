@@ -8,6 +8,7 @@ from src.gateways.postgresql.models.mixins import UpdatedAtMixin, UUIDOidMixin
 
 class UserModel(Base, UUIDOidMixin, UpdatedAtMixin):
     __tablename__ = "users"
+    __table_args__ = {"extend_existing": True}
 
     telegram_id: Mapped[str] = mapped_column(sa.String(12), unique=True)
     first_name: Mapped[str | None] = mapped_column(sa.String(128))

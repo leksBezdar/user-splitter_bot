@@ -13,7 +13,7 @@ class PostgresHealthcheckService(IHealthCheckService):
     database: Database
 
     async def check(self) -> dict[str, bool]:
-        async with self.database.get_session() as session:
+        async with self.database.get_read_only_session() as session:
             try:
                 cursor = await session.execute(sa.select(1))
                 result = cursor.scalar()

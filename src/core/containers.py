@@ -4,11 +4,17 @@ from punq import Container, Scope
 
 from src.core.configs import settings
 from src.domain.services.healthcheck import IHealthCheckService
+from src.domain.services.users import IUserService
 from src.gateways.postgresql.database import Database
+from src.gateways.postgresql.repositories.users import (
+    IUserRepository,
+    ORMUserRepository,
+)
 from src.services.healthcheck import (
     ComposedHealthcheckService,
     PostgresHealthcheckService,
 )
+from src.services.users import ORMUserService
 
 
 @lru_cache(1)
@@ -26,6 +32,9 @@ def _init_container() -> Container:
             url=settings.POSTGRES_DB_URL, ro_url=settings.POSTGRES_DB_URL
         ),
     )
+
+    container.register(IUserRepository, ORMUserRepository)
+    container.register(IUserService, ORMUserService)
 
     container.register(PostgresHealthcheckService)
 
