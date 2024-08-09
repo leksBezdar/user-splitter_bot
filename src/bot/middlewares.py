@@ -1,11 +1,15 @@
+import logging
 from typing import Any, Awaitable, Callable
 
 from aiogram import BaseMiddleware
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message, User as TelegramUser
 
 from src.core.containers import get_container
 from src.domain.entities.users import UserEntity
 from src.domain.services.users import IUserService
+
+
+logger = logging.getLogger(__name__)
 
 
 class GetOrCreateUserMiddleware(BaseMiddleware):
@@ -15,7 +19,8 @@ class GetOrCreateUserMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: dict[str, Any],
     ) -> Any:
-        telegram_user = data["event_from_user"]
+        telegram_user: TelegramUser = data["event_from_user"]
+        logger.info(f"{telegram_user=}")
 
         user = UserEntity(
             telegram_id=str(telegram_user.id),
@@ -26,7 +31,7 @@ class GetOrCreateUserMiddleware(BaseMiddleware):
         )
 
         container = get_container()
-        service = container.resolve(IUserService)
+        service: IUserService = container.resolve(IUserService)
         user = await service.get_or_create(user)
 
         return await handler(event, data)
