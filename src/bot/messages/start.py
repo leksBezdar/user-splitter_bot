@@ -9,7 +9,7 @@ class StartMessageBuilder(BaseMessageBuilder):
     reply_markup = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="Добавить имя", callback_data="..."),
+                InlineKeyboardButton(text="Выбрать группу", callback_data="group"),
                 InlineKeyboardButton(text="Помощь", url="https://aiogram.dev/"),
             ]
         ],
