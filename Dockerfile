@@ -20,6 +20,6 @@ RUN apt update -y && \
     musl-dev && \
     pip install --upgrade pip && pip install --no-cache-dir -r requirements.dev.txt
 
-COPY . /src/src/**
+COPY /src/ /src/**
 
 EXPOSE 8080

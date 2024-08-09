@@ -1,6 +1,7 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from gateways.postgresql.models.groups import GroupModel
 from src.domain.entities.users import UserEntity
 from src.gateways.postgresql.models.base import Base
 from src.gateways.postgresql.models.mixins import UpdatedAtMixin, UUIDOidMixin
@@ -15,6 +16,10 @@ class UserModel(Base, UUIDOidMixin, UpdatedAtMixin):
     last_name: Mapped[str | None] = mapped_column(sa.String(128))
     username: Mapped[str | None] = mapped_column(sa.String(128))
     language_code: Mapped[str | None] = mapped_column(sa.String(8))
+
+    groups: Mapped[list[GroupModel]] = relationship(
+        "GroupModel", secondary="group_users", back_populates="users"
+    )
 
     @staticmethod
     def from_entity(obj: UserEntity) -> "UserModel":

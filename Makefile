@@ -1,3 +1,4 @@
+D = docker
 DC = docker compose
 EXEC = docker exec -it
 LOGS = docker logs
@@ -40,3 +41,7 @@ all:
 .PHONY: app-logs
 app-logs:
 	${LOGS} -f ${APP_CONTAINER}
+
+.PHONY: shell
+shell:
+	${D} exec -it ${APP_CONTAINER} bash

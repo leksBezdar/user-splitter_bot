@@ -42,8 +42,8 @@ class AddGroupRandomlyMessageBuilder(BaseMessageBuilder):
 
 
 class GetGroupRequestMessageBuilder(BaseMessageBuilder):
-    def __init__(self, group_oid: str) -> None:
-        self.group_oid = group_oid
+    def __init__(self, oid: str) -> None:
+        self.oid = oid
 
     @property
     def text(self) -> str:
