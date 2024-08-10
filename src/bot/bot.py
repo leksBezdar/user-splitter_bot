@@ -3,10 +3,10 @@ import logging
 from aiogram import F, Bot, Dispatcher
 from aiogram.filters import CommandStart, Command
 
-from bot.handlers.add_to_group import (
-    add_group_manually_handler,
-    add_group_randomly_handler,
-    start_add_group_handler,
+from bot.handlers.join_group import (
+    join_group_manually_handler,
+    join_group_randomly_handler,
+    start_join_group_handler,
 )
 from bot.middlewares import GetOrCreateUserMiddleware
 from src.bot.handlers.start_handler import start_handler
@@ -26,25 +26,25 @@ def add_handlers(dispatcher: Dispatcher) -> None:
     dispatcher.message.register(start_handler, CommandStart())
     dispatcher.callback_query.register(start_handler, F.data == "start")
 
-    dispatcher.callback_query.register(start_add_group_handler, F.data == "group")
-    dispatcher.message.register(start_add_group_handler, Command("group"))
+    dispatcher.callback_query.register(start_join_group_handler, F.data == "group")
+    dispatcher.message.register(start_join_group_handler, Command("group"))
 
     dispatcher.callback_query.register(
-        add_group_manually_handler,
-        F.data == "add_group_manually",
+        join_group_manually_handler,
+        F.data == "join_group_manually",
     )
     dispatcher.message.register(
-        add_group_manually_handler,
-        Command("add_group_manually"),
+        join_group_manually_handler,
+        Command("join_group_manually"),
     )
 
     dispatcher.callback_query.register(
-        add_group_randomly_handler,
-        F.data == "add_group_randomly",
+        join_group_randomly_handler,
+        F.data == "join_group_randomly",
     )
     dispatcher.message.register(
-        add_group_randomly_handler,
-        Command("add_group_randomly"),
+        join_group_randomly_handler,
+        Command("join_group_randomly"),
     )
 
 

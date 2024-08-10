@@ -2,6 +2,10 @@ from functools import lru_cache
 
 from punq import Container, Scope
 
+from domain.services.groups import IGroupService
+from gateways.postgresql.repositories.base import IGroupRepository
+from gateways.postgresql.repositories.groups import ORMGroupRepository
+from services.groups import ORMGroupService
 from src.core.configs import settings
 from src.domain.services.healthcheck import IHealthCheckService
 from src.domain.services.users import IUserService
@@ -34,7 +38,9 @@ def _init_container() -> Container:
     )
 
     container.register(IUserRepository, ORMUserRepository)
+    container.register(IGroupRepository, ORMGroupRepository)
     container.register(IUserService, ORMUserService)
+    container.register(IGroupService, ORMGroupService)
 
     container.register(PostgresHealthcheckService)
 

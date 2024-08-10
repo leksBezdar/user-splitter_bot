@@ -1,14 +1,12 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from gateways.postgresql.models.groups import GroupModel
 from src.domain.entities.users import UserEntity
 from src.gateways.postgresql.models.base import Base
 from src.gateways.postgresql.models.mixins import UpdatedAtMixin, UUIDOidMixin
 
 
 class UserModel(Base, UUIDOidMixin, UpdatedAtMixin):
-    __tablename__ = "users"
     __table_args__ = {"extend_existing": True}
 
     telegram_id: Mapped[str] = mapped_column(sa.String(12), unique=True)
@@ -17,9 +15,8 @@ class UserModel(Base, UUIDOidMixin, UpdatedAtMixin):
     username: Mapped[str | None] = mapped_column(sa.String(128))
     language_code: Mapped[str | None] = mapped_column(sa.String(8))
 
-    groups: Mapped[list[GroupModel]] = relationship(
-        "GroupModel", secondary="group_users", back_populates="users"
-    )
+    group_oid: Mapped[str] = mapped_column(sa.ForeignKey("groups.oid"))
+    group = relationship("GroupModel", back_populates="users")
 
     @staticmethod
     def from_entity(obj: UserEntity) -> "UserModel":

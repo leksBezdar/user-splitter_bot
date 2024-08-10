@@ -7,7 +7,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from src.core.configs import settings
-from src.gateways.postgresql.models import *  # noqa
+from src.gateways.postgresql.models.users import UserModel  # noqa
+from src.gateways.postgresql.models.groups import GroupModel # noqa
 from src.gateways.postgresql.models.base import Base
 
 # this is the Alembic Config object, which provides
